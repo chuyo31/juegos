@@ -9,7 +9,7 @@ async function loadGames() {
 
   games = await response.json();
 
-  document.title = "Chuyo Games";
+  document.title = "CHUYO31 GAMES";
   $("#year").textContent = new Date().getFullYear();
 
   buildCategories();
