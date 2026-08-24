@@ -1,0 +1,26 @@
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:#061015;color:#eaf6f8}body{overflow-x:hidden}.bg-glow{position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 75% 10%,#12617a22,transparent 32%),radial-gradient(circle at 10% 80%,#0b758322,transparent 28%)}.site-header,main,footer{position:relative;z-index:1}.site-header{height:74px;padding:0 clamp(18px,4vw,60px);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff10;background:#071217d9;backdrop-filter:blur(14px);position:sticky;top:0;z-index:10}.brand{display:flex;align-items:center;gap:10px}.brand-icon{width:38px;height:38px;display:grid;place-items:center;border:1px solid #55c8eb55;border-radius:11px;background:#0d2630;font-size:20px}.brand strong{display:block;letter-spacing:2px;font-size:15px}.brand span{display:block;color:#55c8eb;font-size:9px;letter-spacing:3px}.header-right{color:#78919a;font-size:11px}main{width:min(1240px,calc(100% - 32px));margin:auto}.hero{min-height:270px;display:flex;align-items:center;justify-content:space-between;padding:50px 10px 35px}.eyebrow{font-size:10px;letter-spacing:3px;color:#55c8eb;font-weight:800}.hero h1{font-size:clamp(42px,7vw,78px);line-height:.88;margin:12px 0 18px;letter-spacing:-4px}.hero h1 em{font-style:normal;color:#61d8a5}.hero p{max-width:510px;color:#8fa7af;font-size:14px;line-height:1.6}.hero-badge{width:130px;height:130px;border-radius:50%;display:grid;place-items:center;text-align:center;border:1px solid #55c8eb55;background:#0b2029aa;box-shadow:0 0 60px #24bce822;font-size:12px;letter-spacing:2px;color:#6f929d}.hero-badge b{font-size:18px;color:#fff}.toolbar{display:flex;gap:10px;align-items:center;margin-bottom:20px}.search{height:42px;flex:1;display:flex;align-items:center;gap:8px;padding:0 13px;border:1px solid #28414a;background:#09171dcc;border-radius:10px}.search span{font-size:23px;color:#6f8b95}.search input{width:100%;border:0;outline:0;background:none;color:#fff;font-size:12px}.categories{display:flex;gap:6px;flex-wrap:wrap}.category{border:1px solid #28414a;background:#09171d;color:#8099a2;border-radius:9px;padding:8px 12px;font-size:10px;cursor:pointer}.category.active,.category:hover{background:#126079;border-color:#55c8eb;color:#fff}.games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;padding-bottom:45px}.game-card{min-height:315px;overflow:hidden;border:1px solid #29434d;border-radius:16px;background:#09171ddd;box-shadow:0 16px 45px #0007;transition:.2s}.game-card:hover{transform:translateY(-4px);border-color:#55c8eb66;box-shadow:0 22px 55px #0009}.cover{height:165px;background:linear-gradient(135deg,#0e2d38,#071116);display:grid;place-items:center;position:relative;overflow:hidden}.cover::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,#061015cc)}.cover img{width:100%;height:100%;object-fit:cover}.cover-icon{font-size:55px;opacity:.85}.badge{position:absolute;z-index:2;top:10px;left:10px;padding:5px 8px;border-radius:6px;background:#55c8eb;color:#041015;font-weight:900;font-size:8px}.game-body{padding:16px}.game-body h2{font-size:18px;margin:0 0 7px}.game-body p{height:48px;margin:0 0 13px;color:#829aa3;font-size:11px;line-height:1.5}.tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px}.tag{font-size:8px;color:#75919a;background:#10232a;border:1px solid #213942;padding:4px 6px;border-radius:5px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}.btn{display:flex;justify-content:center;align-items:center;height:36px;border-radius:8px;text-decoration:none;font-size:10px;font-weight:900}.play{background:#55c8eb;color:#041015}.download{background:#10242b;color:#9bb3bb;border:1px solid #28414a}.disabled{opacity:.4;pointer-events:none}.empty{text-align:center;padding:60px;color:#718991}.hidden{display:none!important}footer{text-align:center;padding:22px;color:#536c74;border-top:1px solid #ffffff08;font-size:9px}@media(max-width:700px){.site-header{height:64px}.hero{min-height:230px;padding:35px 5px}.hero-badge{width:85px;height:85px;font-size:9px}.hero h1{font-size:48px}.toolbar{flex-direction:column;align-items:stretch}.games-grid{grid-template-columns:1fr}.header-right{display:none}}
+
+.game-meta{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:7px;
+  color:#66828b;
+  font-size:8px;
+  text-transform:uppercase;
+  letter-spacing:.8px;
+}
+.platforms{
+  display:flex;
+  gap:5px;
+  flex-wrap:wrap;
+  margin:-2px 0 12px;
+}
+.platform{
+  padding:4px 6px;
+  border-radius:5px;
+  border:1px solid #21404a;
+  background:#0c222a;
+  color:#8db6c1;
+  font-size:8px;
+}
