@@ -1,0 +1,14 @@
+[
+  {
+    "id":"repair-mahjong",
+    "nombre":"Repair Mahjong",
+    "categoria":"Puzzle",
+    "descripcion":"Un Mahjong donde las fichas son componentes de reparación de móviles, PC y consolas.",
+    "version":"V3",
+    "estado":"WEB",
+    "url":"https://chuyo31.github.io/repair-mahjong/",
+    "descarga":"",
+    "imagen":"",
+    "tags":["Puzzle","Mahjong","Reparación"]
+  }
+]
