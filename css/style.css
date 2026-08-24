@@ -56,3 +56,8 @@ footer{text-align:center;border-top:1px solid #ffffff0a;padding:25px;color:#526b
 .main-nav a{color:#9ab2ba!important;text-decoration:none!important}
 .main-nav a.active,.main-nav a:hover{color:#fff!important;text-decoration:none!important}
 .theme-button{appearance:none;color:#dceef2!important;font-family:inherit}
+
+#juegos{min-height:220px}
+.games-grid{align-items:start}
+.game-card{min-width:0}
+.cover img{display:block}

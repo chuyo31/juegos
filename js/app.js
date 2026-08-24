@@ -69,8 +69,11 @@ function render() {
     return categoryMatch && (!query || searchable.includes(query));
   });
 
-  $("#gameCount").textContent =
-    `${games.length} ${games.length === 1 ? "juego" : "juegos"}`;
+  const gameCount = $("#gameCount");
+  if (gameCount) {
+    gameCount.textContent =
+      `${games.length} ${games.length === 1 ? "juego" : "juegos"}`;
+  }
 
   $("#games").innerHTML = filtered.map(createGameCard).join("");
   $("#empty").classList.toggle("hidden", filtered.length > 0);
