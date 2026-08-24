@@ -8,7 +8,7 @@
       "Web"
     ],
     "status": "WEB",
-    "playUrl": "https://chuyo31.github.io/repair-mahjong/",
+    "playUrl": "./repair-mahjong/",
     "downloadUrl": "",
     "cover": "assets/games/repair-mahjong.png",
     "description": "Mahjong de reparación electrónica con móviles, PC y consolas.",

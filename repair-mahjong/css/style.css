@@ -1,0 +1,1275 @@
+
+*{box-sizing:border-box}
+:root{
+  --bg:#060c10;
+  --bg2:#09151b;
+  --panel:#0c171e;
+  --panel2:#101e26;
+  --line:#20343e;
+  --line2:#2d4855;
+  --text:#edf6f8;
+  --muted:#78909b;
+  --accent:#57c8f3;
+  --accent2:#2a8fbd;
+  --warn:#ffc86b;
+  --good:#57df9a;
+  --danger:#ff6f71;
+}
+html,body{
+  margin:0;min-height:100%;
+  background:
+    radial-gradient(circle at 50% -10%,#183541 0,transparent 42%),
+    radial-gradient(circle at 5% 90%,#0b252c 0,transparent 30%),
+    linear-gradient(145deg,#050b0f,#081218 55%,#050a0e);
+  color:var(--text);
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+}
+body{overflow-x:hidden}
+button,input{font:inherit}
+button{border:0}
+.app{min-height:100vh;padding:18px 20px 22px;position:relative;z-index:1}
+
+/* ---------- TOP HUD ---------- */
+.topbar{
+  height:78px;display:grid;grid-template-columns:280px 1fr auto;
+  align-items:center;gap:20px;max-width:1540px;margin:auto;
+  padding:9px 12px 9px 10px;
+  background:linear-gradient(180deg,rgba(16,30,38,.96),rgba(8,17,23,.96));
+  border:1px solid #28404b;border-radius:17px;
+  box-shadow:0 18px 55px #0008,inset 0 1px #ffffff08;
+}
+.brand{display:flex;align-items:center;gap:11px;min-width:0}
+.brand-icon{
+  width:48px;height:48px;border-radius:13px;display:grid;place-items:center;
+  background:linear-gradient(145deg,#163d4d,#0d2530);
+  border:1px solid #356276;font-size:24px;
+  box-shadow:inset 0 1px #ffffff10,0 7px 18px #0006;
+}
+.brand strong{display:block;font-size:14px;letter-spacing:1.5px;font-weight:950}
+.brand small{display:block;color:#8199a3;font-size:9px;margin-top:4px;letter-spacing:.3px}
+.header-message{
+  justify-self:center;max-width:520px;text-align:center;color:#b6cbd3;
+  font-size:11px;font-weight:800;letter-spacing:.2px;
+  padding:9px 20px;border-radius:999px;
+  background:#071218;border:1px solid #1d313a;
+  box-shadow:inset 0 1px #ffffff06;
+}
+.stats{display:flex;gap:7px}
+.stats div{
+  min-width:65px;padding:7px 10px;text-align:center;
+  background:#0a151b;border:1px solid #20343d;border-radius:11px;
+}
+.stats span{display:block;color:#607985;font-size:7px;letter-spacing:1.2px;font-weight:900}
+.stats b{display:block;font-size:14px;margin-top:3px;letter-spacing:.3px}
+
+/* ---------- RESOURCE HUD ---------- */
+.resourcebar{
+  max-width:1540px;margin:11px auto 12px;
+  display:grid;grid-template-columns:1fr 1.35fr 1fr;align-items:center;gap:9px;
+}
+.resourcebar>div{
+  position:relative;min-height:37px;display:flex;align-items:center;
+  background:linear-gradient(180deg,#0d1b22,#0a151b);
+  border:1px solid #223944;border-radius:11px;padding:8px 13px;
+  font-size:9px;font-weight:950;letter-spacing:.25px;
+  box-shadow:0 8px 22px #0005,inset 0 1px #ffffff06;
+}
+.resourcebar>div:first-child{justify-content:flex-start}
+.resourcebar>div:last-child{justify-content:flex-end}
+.resourcebar b{margin-left:5px;color:#fff}
+.resourcebar>div:first-child b{color:var(--warn)}
+.resourcebar>div:last-child b{color:#80d7ff}
+.move-center{justify-content:center!important;text-align:center!important;color:#a9c5cf!important}
+.move-center::before{
+  content:"";width:6px;height:6px;border-radius:50%;background:var(--good);
+  box-shadow:0 0 10px var(--good);margin-right:8px;
+}
+.move-center.warning::before{background:var(--warn);box-shadow:0 0 10px var(--warn)}
+.move-center.danger::before{background:var(--danger);box-shadow:0 0 10px var(--danger)}
+
+/* ---------- MAIN ---------- */
+main{
+  max-width:1540px;margin:auto;display:grid;
+  grid-template-columns:minmax(720px,1fr) 250px;gap:14px;
+}
+.board-wrap{
+  min-height:720px;border:1px solid #233b45;border-radius:17px;
+  background:
+    linear-gradient(rgba(67,139,158,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(67,139,158,.045) 1px,transparent 1px),
+    radial-gradient(circle at 50% 40%,rgba(38,113,137,.11),transparent 52%),
+    linear-gradient(180deg,#09151b,#061015);
+  background-size:42px 42px,42px 42px,100% 100%,100% 100%;
+  overflow:auto;position:relative;z-index:2;
+  box-shadow:0 20px 55px #0008,inset 0 1px #ffffff07;
+}
+.board-wrap::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(circle at 50% 0,rgba(101,199,240,.07),transparent 42%);
+}
+.board-overlay-top{
+  position:absolute;left:16px;right:16px;top:13px;height:39px;
+  display:flex;justify-content:space-between;align-items:center;
+  z-index:10;pointer-events:none;
+}
+.board-title{display:flex;align-items:center;gap:8px}
+.board-dot{width:6px;height:6px;border-radius:50%;background:#57df9a;box-shadow:0 0 10px #57df9a}
+.board-title strong{display:block;font-size:8px;letter-spacing:.8px;color:#90aab4}
+.board-title small{display:block;font-size:7px;color:#566d77;margin-top:3px}
+.board-hint{
+  color:#69828c;font-size:8px;font-weight:800;
+  background:#071218cc;border:1px solid #1b3039;border-radius:8px;padding:7px 10px;
+}
+#board{
+  position:relative;z-index:3;display:block!important;
+  width:1040px;height:700px;min-width:1040px;min-height:700px;
+  margin:0 auto;opacity:1!important;visibility:visible!important;
+}
+
+/* ---------- PREMIUM TILES ---------- */
+.tile{
+  position:absolute!important;width:86px;height:108px;padding:7px;
+  border-radius:11px;border:1px solid #62737a;
+  background:
+    linear-gradient(145deg,#fbfdfd 0%,#e7edef 48%,#cbd5d9 100%);
+  color:#132329;
+  box-shadow:
+    0 2px 0 #ffffffaa inset,
+    0 -1px 0 #7f9198 inset,
+    0 5px 0 #68767d,
+    0 10px 18px #0009;
+  cursor:pointer;transition:transform .16s cubic-bezier(.2,.8,.2,1),filter .16s,box-shadow .16s;
+  display:block!important;visibility:visible!important;opacity:1!important;
+  overflow:hidden;
+}
+.tile::after{
+  content:"";position:absolute;inset:0;pointer-events:none;border-radius:10px;
+  background:linear-gradient(125deg,rgba(255,255,255,.42),transparent 34%,transparent 68%,rgba(0,0,0,.08));
+}
+.tile:hover:not(:disabled){
+  transform:translateY(-5px) scale(1.025);
+  filter:brightness(1.06);
+  box-shadow:0 2px 0 #fff inset,0 6px 0 #68767d,0 15px 25px #000b,0 0 0 1px #65c7f044;
+}
+.tile:disabled{cursor:not-allowed}
+.tile.blocked{
+  filter:brightness(.56) saturate(.75);
+  box-shadow:0 4px 0 #4d5960,0 7px 12px #0008;
+}
+.tile.selected{
+  outline:0;
+  transform:translateY(-7px) scale(1.035);
+  filter:brightness(1.08);
+  box-shadow:0 0 0 2px var(--accent),0 0 22px rgba(87,200,243,.42),0 7px 0 #68767d,0 15px 25px #000b;
+}
+.tile .tag{
+  font-size:7px;font-weight:950;letter-spacing:.9px;display:block;
+  color:#64747b;text-align:left;padding-left:1px;
+}
+.tile .icon{
+  font-size:38px;display:block;text-align:center;margin:7px 0 5px;
+  filter:drop-shadow(0 2px 1px #0002);
+}
+.tile .name{font-size:9px;font-weight:950;text-align:center;display:block;line-height:1.05}
+.tile .sub{font-size:7px;text-align:center;color:#65757d;display:block;margin-top:5px}
+.tile.selected .tag,.tile.selected .name{color:#0d6e93}
+
+/* ---------- SIDEBAR ---------- */
+.side{display:flex;flex-direction:column;gap:10px}
+.panel{
+  padding:13px 13px 12px;border-radius:14px;
+  background:linear-gradient(180deg,#0d1a21,#09141a);
+  border:1px solid #233a44;
+  box-shadow:0 12px 30px #0006,inset 0 1px #ffffff06;
+}
+.panel h3{
+  margin:0 0 10px;color:#78929c;font-size:8px;letter-spacing:1.2px;
+  font-weight:950;
+}
+.line{
+  min-height:31px;display:flex;align-items:center;justify-content:space-between;
+  border-top:1px solid #ffffff07;font-size:9px;color:#b3c4ca;
+}
+.line:first-of-type{border-top:0}
+.line b{color:#edf6f8;font-size:10px}
+.action,.secondary{
+  width:100%;border-radius:12px;padding:12px 13px;font-weight:950;
+  cursor:pointer;transition:transform .14s,filter .14s,box-shadow .14s,border-color .14s;
+}
+.action{
+  color:#fff;
+  background:linear-gradient(180deg,#32a7d9,#1d769f);
+  border:1px solid #48b9e5;
+  box-shadow:0 4px 0 #11546e,0 10px 22px #0007;
+}
+.action:hover{transform:translateY(-2px);filter:brightness(1.08);box-shadow:0 5px 0 #11546e,0 14px 25px #0008}
+.action:active{transform:translateY(2px);box-shadow:0 2px 0 #11546e}
+.secondary{
+  color:#a9bdc5;background:#101f27;border:1px solid #29424d;
+  box-shadow:0 7px 18px #0005;
+}
+.secondary:hover{border-color:#3d5c68;background:#14262f;color:#e8f3f6}
+.audio label{display:block;color:#708892;font-size:8px;font-weight:800}
+.audio input{width:100%;margin:9px 0 11px;accent-color:#35aee0}
+.audio-row{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.audio-row button{
+  background:#11222b;color:#b9cbd2;border:1px solid #29424d;
+  border-radius:9px;padding:8px 5px;font-size:8px;font-weight:900;cursor:pointer;
+}
+.audio-row button:hover{background:#172d38;border-color:#3a6270}
+.help p{font-size:8px;line-height:1.55;color:#718791;margin:7px 0}
+.help p:last-child{margin-bottom:0}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:1050px){
+  .app{padding:10px}
+  .topbar{grid-template-columns:1fr auto;height:auto;min-height:74px}
+  .header-message{display:none}
+  main{grid-template-columns:1fr}
+  .side{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .board-wrap{min-height:720px}
+}
+@media(max-width:680px){
+  .stats{gap:4px}.stats div{min-width:54px;padding:6px 5px}
+  .brand small{display:none}.brand strong{font-size:11px}
+  .resourcebar{grid-template-columns:1fr}
+  .resourcebar>div{justify-content:center!important}
+  .side{grid-template-columns:1fr}
+}
+
+.tile.removing{
+  animation:none!important;
+  opacity:1!important;
+  z-index:150!important;
+  pointer-events:none!important;
+  transition:none!important;
+}
+.tile.removing::before{display:none!important}
+
+.tile.pair-merge-left{animation:mergeLeft .78s cubic-bezier(.16,.84,.22,1) forwards!important}
+.tile.pair-merge-right{animation:mergeRight .78s cubic-bezier(.16,.84,.22,1) forwards!important}
+
+@keyframes mergeLeft{
+  0%{opacity:1;transform:translateY(0) scale(1) rotate(0);filter:brightness(1)}
+  12%{transform:translateY(-7px) scale(1.025) rotate(-1deg);filter:brightness(1.08)}
+  25%{transform:translateY(-18px) scale(1.075) rotate(-2deg);filter:brightness(1.25)}
+  50%{transform:translate(var(--merge-x),-23px) scale(.96) rotate(1deg);filter:brightness(1.45)}
+  68%{opacity:.9;transform:translate(var(--merge-x),-20px) scale(.72) rotate(0);filter:brightness(1.9)}
+  82%{opacity:.55;transform:translate(var(--merge-x),-20px) scale(.45);filter:blur(1px) brightness(2.2)}
+  100%{opacity:0;transform:translate(var(--merge-x),-20px) scale(.18);filter:blur(5px) brightness(2.7)}
+}
+@keyframes mergeRight{
+  0%{opacity:1;transform:translateY(0) scale(1) rotate(0);filter:brightness(1)}
+  12%{transform:translateY(-7px) scale(1.025) rotate(1deg);filter:brightness(1.08)}
+  25%{transform:translateY(-18px) scale(1.075) rotate(2deg);filter:brightness(1.25)}
+  50%{transform:translate(var(--merge-x),-23px) scale(.96) rotate(-1deg);filter:brightness(1.45)}
+  68%{opacity:.9;transform:translate(var(--merge-x),-20px) scale(.72) rotate(0);filter:brightness(1.9)}
+  82%{opacity:.55;transform:translate(var(--merge-x),-20px) scale(.45);filter:blur(1px) brightness(2.2)}
+  100%{opacity:0;transform:translate(var(--merge-x),-20px) scale(.18);filter:blur(5px) brightness(2.7)}
+}
+
+.pair-fused{
+  position:absolute;width:86px;height:108px;padding:7px;border-radius:9px;
+  border:1px solid rgba(160,231,255,.95);
+  background:linear-gradient(145deg,#ffffff,#dcecf2);
+  color:#102027;
+  box-shadow:0 0 0 2px rgba(101,199,240,.18),0 0 22px rgba(101,199,240,.45),0 0 55px rgba(101,199,240,.28),0 12px 28px #000b;
+  z-index:300;pointer-events:none;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;overflow:visible;
+  animation:fusedCard .58s cubic-bezier(.16,.84,.22,1) forwards;
+}
+.pair-fused::before{
+  content:"";position:absolute;inset:-18px;border-radius:16px;
+  background:radial-gradient(circle,rgba(255,255,255,.85) 0 4%,rgba(101,199,240,.55) 12%,rgba(101,199,240,.18) 35%,transparent 70%);
+  opacity:0;animation:fusedGlow .58s ease-out forwards;pointer-events:none;
+}
+.pair-fused::after{
+  content:"";position:absolute;inset:-9px;border-radius:13px;
+  border:2px solid rgba(166,235,255,.75);opacity:0;
+  animation:fusedRing .58s ease-out forwards;pointer-events:none;
+}
+.pair-fused .fused-icon{font-size:46px;line-height:1;filter:drop-shadow(0 0 7px rgba(101,199,240,.55))}
+.pair-fused .fused-name{font-size:9px;font-weight:900;margin-top:7px}
+@keyframes fusedCard{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.2) rotate(-3deg);filter:blur(5px)}
+  18%{opacity:1;transform:translate(-50%,-50%) scale(.68) rotate(2deg);filter:blur(0) brightness(1.15)}
+  38%{opacity:1;transform:translate(-50%,-50%) scale(1.08) rotate(0);filter:brightness(1.4)}
+  52%{opacity:1;transform:translate(-50%,-50%) scale(.98)}
+  70%{opacity:.9;transform:translate(-50%,-50%) scale(1.02);filter:brightness(1.8)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(.48);filter:blur(5px) brightness(2.2)}
+}
+@keyframes fusedGlow{
+  0%{opacity:0;transform:scale(.3)}
+  35%{opacity:.95;transform:scale(.85)}
+  60%{opacity:.65;transform:scale(1.18)}
+  100%{opacity:0;transform:scale(1.75)}
+}
+@keyframes fusedRing{
+  0%{opacity:0;transform:scale(.4)}
+  35%{opacity:1;transform:scale(.85)}
+  100%{opacity:0;transform:scale(1.65)}
+}
+.pair-spark{
+  position:absolute;width:6px;height:6px;border-radius:50%;
+  background:#e9fbff;box-shadow:0 0 8px #65c7f0,0 0 16px #65c7f0;
+  z-index:350;pointer-events:none;animation:sparkFly .6s ease-out forwards;
+}
+@keyframes sparkFly{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}
+  18%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  100%{opacity:0;transform:translate(calc(-50% + var(--sx)),calc(-50% + var(--sy))) scale(.05)}
+}
+.pair-impact{
+  position:absolute;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:200;
+  background:radial-gradient(circle,#fff 0 12%,rgba(101,199,240,.9) 28%,rgba(101,199,240,0) 72%);
+  animation:pairImpact .55s ease-out forwards;
+}
+@keyframes pairImpact{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}
+  20%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(5)}
+}
+.audio .track-row{display:grid;grid-template-columns:32px 1fr 32px;align-items:center;gap:5px;margin-top:7px}.track-row button{background:#17262e;color:#b5c5cb;border:1px solid var(--line);border-radius:7px;padding:6px;cursor:pointer}.track-row span{font-size:8px;text-align:center;color:#8ca4ae;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.danger-card{border-color:#6a4141;box-shadow:0 25px 90px #000e,0 0 40px #6a242422}.modal-sub{color:#7f959f!important}.no-moves-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:16px 0}.no-moves-stats span{font-size:8px;color:#71858e;background:#091218;border:1px solid var(--line);border-radius:8px;padding:8px}.no-moves-stats b{display:block;color:#fff;font-size:14px;margin-top:3px}.danger-card button{width:100%}.danger-card .secondary{margin-top:7px}
+
+#board{display:block;min-width:1040px;min-height:700px;opacity:1!important;visibility:visible!important}
+.tile{display:block!important;visibility:visible!important;opacity:1!important}
+.ambient{pointer-events:none!important}
+
+.board-wrap{position:relative;z-index:2;background:linear-gradient(180deg,#0b151b,#071015)!important}
+#board{position:relative;z-index:3;display:block!important}
+.tile{position:absolute!important;z-index:5;display:block!important}
+
+/* ---------- DIFFICULTY SELECTOR ---------- */
+.difficultybar{
+  max-width:1540px;margin:0 auto 10px;display:flex;align-items:center;gap:6px;
+  padding:5px;background:#081218;border:1px solid #1f343e;border-radius:11px;
+  width:max-content;box-shadow:0 8px 20px #0005;
+}
+.difficulty-label{font-size:7px;font-weight:950;letter-spacing:1px;color:#637b85;padding:0 7px}
+.difficulty-btn{
+  border:1px solid #243d47;background:#0d1b22;color:#78919b;
+  border-radius:8px;padding:7px 12px;font-size:8px;font-weight:950;cursor:pointer;
+  transition:.15s;
+}
+.difficulty-btn:hover{color:#dcebf0;border-color:#3b6170;background:#12252e}
+.difficulty-btn.active{
+  color:#fff;border-color:#4eb9df;background:linear-gradient(180deg,#17647f,#10455a);
+  box-shadow:0 0 12px rgba(87,200,243,.18),inset 0 1px #ffffff18;
+}
+@media(max-width:680px){.difficultybar{width:100%;}.difficulty-label{padding-left:3px}.difficulty-btn{flex:1;padding:7px 5px}}
+/* ---------- LAYERED MAHJONG BOARD ---------- */
+.tile{
+  transition:transform .16s cubic-bezier(.2,.8,.2,1),filter .16s,box-shadow .16s,left .2s,top .2s;
+}
+.tile.layered{
+  box-shadow:
+    0 2px 0 #ffffffaa inset,
+    0 -1px 0 #7f9198 inset,
+    0 5px 0 #68767d,
+    0 10px 18px #0009,
+    -4px 5px 0 rgba(36,68,75,.22);
+}
+.tile.layered::before{
+  content:"";position:absolute;inset:3px;border-radius:8px;pointer-events:none;
+  border:1px solid rgba(40,75,85,.12);
+}
+.tile.layered[data-z="1"]{box-shadow:0 2px 0 #fff9 inset,0 5px 0 #68767d,0 10px 18px #0009,-4px 5px 0 rgba(36,68,75,.22),0 0 0 1px rgba(87,200,243,.05)}
+.tile.layered[data-z="2"]{box-shadow:0 2px 0 #fff9 inset,0 5px 0 #68767d,0 10px 18px #0009,-6px 7px 0 rgba(36,68,75,.26),0 0 0 1px rgba(87,200,243,.08)}
+.tile.layered[data-z="3"]{box-shadow:0 2px 0 #fff9 inset,0 5px 0 #68767d,0 10px 18px #0009,-7px 8px 0 rgba(36,68,75,.3),0 0 0 1px rgba(87,200,243,.11)}
+
+/* Easy mode still uses layers: the difficulty changes complexity, not the
+   fundamental Mahjong mechanic. */
+.tile[data-z="1"]{box-shadow:0 2px 0 #fff9 inset,0 5px 0 #68767d,0 10px 18px #0009,-4px 5px 0 rgba(36,68,75,.22),0 0 0 1px rgba(87,200,243,.07)}
+.tile[data-z="2"]{box-shadow:0 2px 0 #fff9 inset,0 5px 0 #68767d,0 10px 18px #0009,-6px 7px 0 rgba(36,68,75,.28),0 0 0 1px rgba(87,200,243,.1)}
+
+/* =========================================================
+   FIX UI V3: DIFFICULTY + MODALS
+   ========================================================= */
+.difficultybar{
+  position:relative;
+  z-index:20;
+  width:100%;
+  max-width:1540px;
+  margin:10px auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  padding:6px;
+  background:linear-gradient(180deg,#0d1a21,#09141a);
+  border:1px solid #233a44;
+  border-radius:12px;
+  box-shadow:0 8px 24px #0006,inset 0 1px #ffffff07;
+}
+.difficulty-label{
+  font-size:8px;font-weight:950;letter-spacing:1.2px;
+  color:#718a94;margin-right:5px;
+}
+.difficulty-btn{
+  min-width:104px;
+  border:1px solid #29424d;
+  background:#0d1b22;
+  color:#8199a3;
+  border-radius:9px;
+  padding:8px 13px;
+  font-size:9px;
+  font-weight:950;
+  cursor:pointer;
+  transition:transform .15s,background .15s,border-color .15s,color .15s,box-shadow .15s;
+}
+.difficulty-btn:hover{
+  color:#edf7fa;background:#132831;border-color:#3d6472;
+  transform:translateY(-1px);
+}
+.difficulty-btn.active{
+  color:#fff;
+  border-color:#55c5ef;
+  background:linear-gradient(180deg,#1b7799,#12516a);
+  box-shadow:0 0 18px rgba(87,200,243,.22),inset 0 1px #ffffff18;
+}
+@media(max-width:680px){
+  .difficultybar{justify-content:stretch}
+  .difficulty-label{display:none}
+  .difficulty-btn{min-width:0;flex:1;padding:8px 4px}
+}
+
+/* Full-screen result/failure overlay. It must never become part of the
+   document flow or require scrolling to see its buttons. */
+.modal.hidden{display:none!important}
+.modal{
+  position:fixed!important;
+  inset:0!important;
+  z-index:99999!important;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:rgba(2,7,10,.78);
+  backdrop-filter:blur(5px);
+  -webkit-backdrop-filter:blur(5px);
+}
+.modal-card{
+  width:min(520px,calc(100vw - 32px));
+  max-height:calc(100vh - 48px);
+  overflow:auto;
+  padding:25px;
+  border-radius:18px;
+  border:1px solid #31515d;
+  background:
+    radial-gradient(circle at 50% 0,rgba(87,200,243,.08),transparent 45%),
+    linear-gradient(180deg,#102029,#09151b);
+  box-shadow:0 30px 100px #000e,0 0 45px rgba(87,200,243,.08),inset 0 1px #ffffff0a;
+  text-align:center;
+  color:#edf6f8;
+  animation:modalIn .25s cubic-bezier(.2,.8,.2,1);
+}
+.modal-card h2{margin:8px 0 7px;font-size:25px;letter-spacing:-.5px}
+.modal-card>p{margin:6px 0;color:#a7bdc5;font-size:11px}
+.modal-icon{
+  width:58px;height:58px;margin:0 auto 8px;
+  display:grid;place-items:center;border-radius:16px;
+  background:#102833;border:1px solid #315361;
+  font-size:31px;
+  box-shadow:0 8px 25px #0007;
+}
+.result-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:18px 0;
+}
+.result-grid>div{
+  padding:10px 6px;border-radius:10px;
+  background:#09141a;border:1px solid #213741;
+}
+.result-grid small{display:block;color:#657e88;font-size:7px;letter-spacing:1px;font-weight:900}
+.result-grid b{display:block;margin-top:5px;font-size:16px;color:#fff}
+.records{
+  text-align:left;background:#09141a;border:1px solid #213741;
+  border-radius:11px;padding:11px;margin:10px 0;
+}
+.records h3{font-size:9px;letter-spacing:.7px;margin:0 0 8px;color:#91aab4}
+.record{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:7px 5px;border-top:1px solid #ffffff07;font-size:10px;color:#8ca2aa;
+}
+.record:first-child{border-top:0}
+.record b{color:#dbe9ed}
+.record.best b{color:#ffd66e}
+.next{
+  text-align:left;padding:11px;border-radius:10px;
+  border:1px solid #2b5944;background:linear-gradient(180deg,#10271e,#0b1b16);
+  margin:10px 0 14px;
+}
+.next strong{display:block;color:#8fe0b1;font-size:9px;letter-spacing:.5px}
+.next span{display:block;color:#78938a;font-size:9px;margin-top:5px}
+.modal-card .action,.modal-card .secondary{margin-top:7px}
+.danger-card{
+  border-color:#65434a;
+  box-shadow:0 30px 100px #000e,0 0 45px rgba(255,111,113,.08);
+}
+.no-moves-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:17px 0;
+}
+.no-moves-stats span{
+  padding:9px 5px;border-radius:9px;background:#09141a;
+  border:1px solid #293941;color:#71858e;font-size:8px;
+}
+.no-moves-stats b{display:block;color:#fff;font-size:15px;margin-top:4px}
+.danger-card .action,.danger-card .secondary{width:100%}
+.danger-card .secondary{margin-top:7px}
+@keyframes modalIn{
+  from{opacity:0;transform:translateY(12px) scale(.96)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+/* Mix animation: cards lift, scatter slightly, then settle into their new
+   identities/positions. The actual board geometry remains unchanged. */
+.mixing-board .tile{
+  animation:mixTile .42s cubic-bezier(.2,.8,.2,1) both;
+}
+.mixing-board .tile:nth-child(3n){animation-delay:.015s}
+.mixing-board .tile:nth-child(4n){animation-delay:.035s}
+.mixing-board .tile:nth-child(5n){animation-delay:.055s}
+@keyframes mixTile{
+  0%{opacity:1;transform:translate(0,0) scale(1) rotate(0);filter:brightness(1)}
+  28%{opacity:.95;transform:translate(calc((var(--mix-rx,1))*7px),-14px) scale(1.07) rotate(calc((var(--mix-r,1))*2deg));filter:brightness(1.3)}
+  58%{opacity:.82;transform:translate(calc((var(--mix-rx,1))*-8px),-20px) scale(.94) rotate(calc((var(--mix-r,-1))*-3deg));filter:brightness(1.5)}
+  100%{opacity:1;transform:translate(0,0) scale(1) rotate(0);filter:brightness(1)}
+}
+.mixing-board::after{
+  content:"";position:absolute;inset:40px;z-index:200;pointer-events:none;
+  border-radius:14px;
+  background:radial-gradient(circle at 50% 48%,rgba(87,200,243,.13),transparent 45%);
+  animation:mixGlow .42s ease-out forwards;
+}
+@keyframes mixGlow{0%{opacity:0;transform:scale(.7)}35%{opacity:1}100%{opacity:0;transform:scale(1.15)}}
+
+/* ---------- LAST MOVE ALERT ---------- */
+.last-move-popup{
+  position:fixed;
+  left:50%;
+  top:50%;
+  z-index:100000;
+  width:min(420px,calc(100vw - 36px));
+  transform:translate(-50%,-50%) scale(.72);
+  opacity:0;
+  pointer-events:none;
+  padding:22px 26px 20px;
+  text-align:center;
+  border-radius:20px;
+  border:1px solid rgba(94,211,248,.55);
+  background:
+    radial-gradient(circle at 50% 15%,rgba(91,211,249,.2),transparent 42%),
+    linear-gradient(180deg,#102832,#08161c);
+  box-shadow:0 28px 80px #000d,0 0 55px rgba(67,205,250,.2),inset 0 1px #ffffff18;
+  backdrop-filter:blur(8px);
+}
+.last-move-popup.show{
+  animation:lastMoveInOut 2.8s cubic-bezier(.2,.8,.2,1) forwards;
+}
+.last-move-orb{
+  width:62px;height:62px;margin:-5px auto 9px;
+  display:grid;place-items:center;border-radius:50%;
+  background:radial-gradient(circle,#8be9ff 0 9%,#207e9e 10% 45%,#0c3544 46% 100%);
+  border:1px solid #6fdcff;
+  font-size:29px;
+  box-shadow:0 0 0 5px rgba(92,214,249,.08),0 0 35px rgba(92,214,249,.5);
+  animation:lastMovePulse .72s ease-in-out infinite alternate;
+}
+.last-move-title{
+  color:#f3fcff;font-size:18px;font-weight:1000;letter-spacing:1.2px;
+  text-shadow:0 0 18px rgba(100,220,255,.45);
+}
+.last-move-sub{margin-top:7px;color:#91b3be;font-size:10px;font-weight:800}
+@keyframes lastMoveInOut{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.72) rotate(-2deg)}
+  12%{opacity:1;transform:translate(-50%,-50%) scale(1.05) rotate(0)}
+  20%{transform:translate(-50%,-50%) scale(1)}
+  72%{opacity:1;transform:translate(-50%,-52%) scale(1)}
+  100%{opacity:0;transform:translate(-50%,-62%) scale(.92)}
+}
+@keyframes lastMovePulse{
+  from{transform:scale(.96);filter:brightness(1)}
+  to{transform:scale(1.06);filter:brightness(1.25)}
+}
+@media(prefers-reduced-motion:reduce){
+  .last-move-popup.show{animation:lastMoveStatic 2.2s ease forwards}
+  .last-move-orb{animation:none}
+  @keyframes lastMoveStatic{0%{opacity:0}15%{opacity:1}75%{opacity:1}100%{opacity:0}}
+}
+
+/* =========================================================
+   AMBIENT ANIMATED BOARD BACKGROUNDS
+   ========================================================= */
+#ambientBg{
+  position:fixed;inset:0;width:100vw;height:100vh;
+  z-index:1;pointer-events:none;opacity:.28;
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:2;pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(2,8,12,.18),rgba(2,8,12,.30)),
+    radial-gradient(circle at 50% 42%,rgba(64,174,211,.04),transparent 42%);
+}
+.app{position:relative;z-index:3}
+
+/* ---------- THEMATIC REPAIR WORKSHOP BACKDROP ---------- */
+body{
+  --repair-bg-image:none;
+  background:#050d12 var(--repair-bg-image) center/cover fixed no-repeat;
+  transition:background-image .45s ease;
+}
+body::before{
+  content:"";
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(2,8,12,.78),rgba(2,10,14,.68) 42%,rgba(2,8,12,.84)),
+    radial-gradient(circle at 50% 45%,rgba(5,35,45,.08),rgba(1,5,8,.42));
+}
+body.background-changing::before{animation:backgroundFade .75s ease}
+@keyframes backgroundFade{
+  0%{opacity:.35;filter:blur(3px)}
+  45%{opacity:1;filter:blur(0)}
+  100%{opacity:1;filter:blur(0)}
+}
+
+/* =========================================================
+   FINAL THEMATIC BACKGROUND LAYER
+   This block intentionally comes last so no earlier body rule
+   can override the photographic background.
+   ========================================================= */
+html,body{background:#050d12!important}
+body{
+  --repair-bg-image:none;
+  background-image:var(--repair-bg-image)!important;
+  background-position:center center!important;
+  background-size:cover!important;
+  background-repeat:no-repeat!important;
+  background-attachment:fixed!important;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(2,8,12,.62),rgba(2,10,14,.54) 45%,rgba(2,8,12,.72)),
+    var(--repair-bg-image);
+  background-position:center,center;
+  background-size:cover,cover;
+  background-repeat:no-repeat,no-repeat;
+  filter:none;
+}
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 50% 38%,rgba(76,195,228,.035),transparent 45%),
+    linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.10));
+}
+.app{position:relative;z-index:3}
+#ambientBg{z-index:1!important;opacity:.20!important}
+
+/* ---------- THEME BACKGROUND SCALE FIX ---------- */
+body{
+  background-size:100% 100%!important;
+  background-position:center center!important;
+}
+body::before{
+  background-size:100% 100%,100% 100%!important;
+  background-position:center center,center center!important;
+}
+
+/* =========================================================
+   REPAIR MAHJONG — COMPACT GLASS UI
+   Inspired by the approved visual direction.
+   Tiles are intentionally NOT resized or reshaped.
+   ========================================================= */
+
+/* Let the workshop background breathe around the board. */
+main, .main, .game-layout, .content, .game-container{
+  max-width:1240px;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* Board shell: narrower and centered, without touching tile geometry. */
+.board-container, .board-wrapper, .game-board-container, .board-area{
+  width:min(820px,100%)!important;
+  max-width:820px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* If the actual board element is larger, center it inside its shell. */
+.board, .game-board{
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* Glass only for board/menu containers. Buttons and tiles remain opaque. */
+header,
+.difficulty-bar,
+.status-bar,
+.panel,
+.sidebar,
+.sidebar-panel,
+.card-panel,
+.rules,
+.sound-panel,
+.stats-panel,
+.board-container,
+.board-wrapper,
+.game-board-container,
+.board-area{
+  background:rgba(7,22,29,.66)!important;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+/* Slightly lighter board shell so the background remains visible. */
+.board-container, .board-wrapper, .game-board-container, .board-area{
+  background:rgba(7,22,29,.48)!important;
+  border-color:rgba(91,190,220,.24)!important;
+}
+
+/* Keep tiles and interactive buttons as they are. */
+.tile,.card,.mahjong-tile,
+button,.btn{
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+
+/* Responsive: never force horizontal growth on smaller screens. */
+@media (max-width:1100px){
+  .board-container, .board-wrapper, .game-board-container, .board-area{
+    width:min(760px,100%)!important;
+    max-width:760px!important;
+  }
+}
+@media (max-width:850px){
+  .board-container, .board-wrapper, .game-board-container, .board-area{
+    width:100%!important;
+    max-width:100%!important;
+  }
+}
+
+/* =========================================================
+   FINAL UI FIT — CENTERED + NO SCROLL + MORE GLASS
+   ========================================================= */
+html,body{
+  width:100%;
+  min-height:100%;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+}
+
+body{
+  display:block!important;
+}
+
+/* Main application uses the available viewport without forcing a
+   giant fixed-height board. */
+.app{
+  width:min(1280px,calc(100vw - 32px))!important;
+  max-width:1280px!important;
+  margin:14px auto 24px!important;
+}
+
+/* Header centered as a complete block. */
+.app > header,
+header{
+  width:100%!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  box-sizing:border-box!important;
+}
+
+/* Difficulty/menu/status rows stay centered and full within the app. */
+.difficulty-bar,
+.status-bar,
+.top-bar,
+.toolbar{
+  width:100%!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  box-sizing:border-box!important;
+}
+
+/* Main game area: board + sidebar, with no nested scrolling. */
+.game-layout,
+.main-layout,
+.content-layout{
+  width:100%!important;
+  max-width:1280px!important;
+  margin:0 auto!important;
+  display:grid!important;
+  align-items:start!important;
+}
+
+/* Board shell: compact, centered, transparent, and never internally scrolls. */
+.board-container,
+.board-wrapper,
+.game-board-container,
+.board-area{
+  width:min(900px,100%)!important;
+  max-width:900px!important;
+  max-height:none!important;
+  height:auto!important;
+  overflow:visible!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  background:rgba(5,18,24,.34)!important;
+  backdrop-filter:blur(7px)!important;
+  -webkit-backdrop-filter:blur(7px)!important;
+}
+
+/* Remove horizontal/vertical scrollbars from likely board wrappers. */
+.board-container::-webkit-scrollbar,
+.board-wrapper::-webkit-scrollbar,
+.game-board-container::-webkit-scrollbar,
+.board-area::-webkit-scrollbar{
+  display:none!important;
+}
+.board-container,
+.board-wrapper,
+.game-board-container,
+.board-area{
+  scrollbar-width:none!important;
+}
+
+/* Make the actual board fit its shell without changing tile proportions. */
+.board,
+.game-board{
+  margin-left:auto!important;
+  margin-right:auto!important;
+  transform-origin:top center;
+}
+
+/* Menus/panels: substantially more transparent, but buttons and tiles remain opaque. */
+header,
+.difficulty-bar,
+.status-bar,
+.panel,
+.sidebar,
+.sidebar-panel,
+.card-panel,
+.rules,
+.sound-panel,
+.stats-panel{
+  background:rgba(5,18,24,.42)!important;
+  backdrop-filter:blur(9px)!important;
+  -webkit-backdrop-filter:blur(9px)!important;
+}
+
+/* Keep the board shell a little more visible than the outer menus. */
+.board-container,
+.board-wrapper,
+.game-board-container,
+.board-area{
+  background:rgba(5,18,24,.30)!important;
+}
+
+/* No transparency applied to actual game pieces or controls. */
+.tile,.card,.mahjong-tile,
+button,.btn{
+  opacity:1!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+
+/* Compact desktop sizing so the complete game fits without a page-length scroll. */
+@media (min-width:1000px){
+  .app{margin-top:10px!important;margin-bottom:14px!important}
+  .board-container,.board-wrapper,.game-board-container,.board-area{
+    max-width:850px!important;
+  }
+}
+
+/* Smaller screens retain natural page scrolling, but no internal board scroll. */
+@media (max-width:999px){
+  .app{width:calc(100vw - 20px)!important}
+  .board-container,.board-wrapper,.game-board-container,.board-area{
+    width:100%!important;
+    max-width:100%!important;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE BOARD ENGINE — FINAL
+   The board keeps its original 1040x700 geometry and tile
+   proportions. Only the complete board is scaled responsively.
+   No internal horizontal/vertical scrollbars.
+   ========================================================= */
+
+html,body{
+  overflow-x:hidden!important;
+}
+
+.app{
+  width:min(1540px,calc(100vw - 28px))!important;
+  min-height:0!important;
+  margin:10px auto 14px!important;
+  padding:0!important;
+}
+
+.topbar,
+.difficultybar,
+.resourcebar,
+main{
+  max-width:1540px!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+.topbar{
+  height:68px!important;
+  padding:7px 10px!important;
+}
+
+.difficultybar{
+  margin-top:8px!important;
+  margin-bottom:8px!important;
+}
+
+.resourcebar{
+  margin:8px auto 10px!important;
+}
+
+/* Desktop: compact two-column layout. */
+main{
+  grid-template-columns:minmax(0,1fr) 250px!important;
+  gap:12px!important;
+  align-items:start!important;
+}
+
+.board-wrap{
+  width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:calc(700px * var(--board-scale))!important;
+  max-height:calc(700px * var(--board-scale))!important;
+  overflow:hidden!important;
+  box-sizing:border-box!important;
+  display:flex!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  background:rgba(5,18,24,.28)!important;
+  backdrop-filter:blur(7px)!important;
+  -webkit-backdrop-filter:blur(7px)!important;
+}
+
+/* The game board itself remains 1040x700; only the whole board is scaled. */
+#board{
+  width:1040px!important;
+  height:700px!important;
+  min-width:1040px!important;
+  min-height:700px!important;
+  flex:0 0 1040px!important;
+  transform:scale(var(--board-scale))!important;
+  transform-origin:top center!important;
+  margin:0!important;
+}
+
+/* Responsive scale based on available viewport width. */
+:root{--board-scale:.78}
+
+@media (min-width:1800px){
+  :root{--board-scale:.82}
+}
+@media (min-width:1400px) and (max-width:1799px){
+  :root{--board-scale:.78}
+}
+@media (min-width:1200px) and (max-width:1399px){
+  :root{--board-scale:.70}
+}
+@media (min-width:1051px) and (max-width:1199px){
+  :root{--board-scale:.64}
+}
+
+/* Tablet / narrow desktop: board full-width, sidebar moves below. */
+@media (max-width:1050px){
+  main{
+    grid-template-columns:1fr!important;
+  }
+  :root{--board-scale:.62}
+  .board-wrap{
+    width:100%!important;
+  }
+  .side{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+
+/* Phones: compact header and smaller board, still no internal scroll. */
+@media (max-width:680px){
+  .app{
+    width:calc(100vw - 14px)!important;
+    margin:7px auto 10px!important;
+  }
+  .topbar{
+    height:auto!important;
+    min-height:62px!important;
+    grid-template-columns:1fr auto!important;
+  }
+  .stats div{
+    min-width:50px!important;
+    padding:5px 4px!important;
+  }
+  :root{--board-scale:.52}
+  .board-wrap{
+    height:calc(700px * var(--board-scale))!important;
+    max-height:calc(700px * var(--board-scale))!important;
+  }
+  .side{
+    grid-template-columns:1fr!important;
+  }
+}
+
+/* Very small phones. */
+@media (max-width:430px){
+  :root{--board-scale:.46}
+}
+
+/* =========================================================
+   TYPOGRAPHY PASS — MÁS LEGIBLE
+   No modifica fichas ni botones; solo aumenta textos de UI.
+   ========================================================= */
+.brand strong{font-size:16px!important}
+.brand small{font-size:10px!important}
+
+.header-message{
+  font-size:12px!important;
+  padding:10px 22px!important;
+}
+
+.stats div{font-size:10px!important}
+.stats div strong,.stats div b{font-size:12px!important}
+
+.difficulty-label{font-size:9px!important}
+.difficulty-btn{font-size:10px!important;padding:8px 14px!important}
+
+.resourcebar>div{font-size:11px!important}
+.resourcebar b{font-size:12px!important}
+.move-center{font-size:11px!important}
+
+.panel h3{font-size:10px!important}
+.line{font-size:11px!important;min-height:34px!important}
+.line b{font-size:12px!important}
+
+.action,.secondary{font-size:12px!important}
+
+.audio-row,.panel small,.panel p,.help,.rules{
+  font-size:10px!important;
+}
+
+/* Texto de las fichas: un poco mayor sin cambiar su geometría. */
+.tile .tile-category,
+.tile .category{font-size:8px!important}
+.tile .tile-name,
+.tile .name{font-size:10px!important}
+.tile .tile-code,
+.tile .code{font-size:7px!important}
+
+/* Mensajes y overlays */
+.board-title strong{font-size:9px!important}
+.board-title small{font-size:8px!important}
+.board-hint{font-size:9px!important}
+
+.modal-card h2{font-size:24px!important}
+.modal-card p{font-size:13px!important}
+.modal-card button{font-size:13px!important}
+
+/* En móvil, mantener legibilidad sin provocar overflow. */
+@media(max-width:680px){
+  .brand strong{font-size:14px!important}
+  .header-message{font-size:10px!important}
+  .resourcebar>div{font-size:10px!important}
+  .resourcebar b{font-size:11px!important}
+  .line{font-size:10px!important}
+  .line b{font-size:11px!important}
+}
+
+/* =========================================================
+   TYPOGRAPHY FINAL — tamaño solicitado
+   Aumenta claramente la lectura de los paneles sin tocar
+   proporciones/tamaño de las fichas.
+   ========================================================= */
+header .brand strong{font-size:18px!important}
+header .brand small{font-size:11px!important}
+
+.header-message{font-size:14px!important}
+.stats div{font-size:12px!important}
+.stats div strong,.stats div b{font-size:14px!important}
+
+.difficulty-label{font-size:11px!important}
+.difficulty-btn{font-size:12px!important}
+
+.resourcebar>div{font-size:13px!important}
+.resourcebar b{font-size:14px!important}
+.move-center{font-size:13px!important}
+
+.panel h3{font-size:12px!important}
+.line{font-size:13px!important;min-height:40px!important}
+.line b{font-size:14px!important}
+
+.action,.secondary{font-size:14px!important}
+
+.audio-row,
+.panel small,
+.panel p,
+.help,
+.rules{font-size:12px!important;line-height:1.5!important}
+
+.panel .label{font-size:12px!important}
+
+/* Fichas: solo tipografía, sin alterar geometría. */
+.tile .tile-category,.tile .category{font-size:9px!important}
+.tile .tile-name,.tile .name{font-size:11px!important}
+.tile .tile-code,.tile .code{font-size:8px!important}
+
+/* Overlays */
+.board-title strong{font-size:11px!important}
+.board-title small{font-size:10px!important}
+.board-hint{font-size:11px!important}
+.modal-card h2{font-size:28px!important}
+.modal-card p{font-size:15px!important}
+.modal-card button{font-size:15px!important}
+
+@media(max-width:680px){
+  header .brand strong{font-size:16px!important}
+  header .brand small{font-size:10px!important}
+  .header-message{font-size:12px!important}
+  .resourcebar>div{font-size:12px!important}
+  .resourcebar b{font-size:13px!important}
+  .line{font-size:12px!important}
+  .line b{font-size:13px!important}
+  .audio-row,.panel small,.panel p,.help,.rules{font-size:11px!important}
+}
+
+/* =========================================================
+   SOUND CONTROLS — ICONOS GRANDES + TEXTO EQUILIBRADO
+   Aplicado solo al bloque Sonido/Música.
+   ========================================================= */
+
+/* Título del panel: icono notablemente mayor, título legible. */
+.sound-panel h3,
+.audio-panel h3{
+  font-size:12px!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:7px!important;
+}
+.sound-panel h3 .icon,
+.sound-panel h3 i,
+.sound-panel h3 svg,
+.audio-panel h3 .icon,
+.audio-panel h3 i,
+.audio-panel h3 svg{
+  font-size:17px!important;
+  width:17px!important;
+  height:17px!important;
+}
+
+/* Etiqueta Volumen al mismo nivel tipográfico que el resto del panel. */
+.sound-panel .volume-label,
+.audio-panel .volume-label{
+  font-size:12px!important;
+}
+
+/* Botones: icono más grande y texto exactamente con el mismo tamaño. */
+.sound-panel button,
+.audio-panel button{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:6px!important;
+  font-size:12px!important;
+  line-height:1.1!important;
+}
+
+.sound-panel button i,
+.sound-panel button svg,
+.sound-panel button .icon,
+.audio-panel button i,
+.audio-panel button svg,
+.audio-panel button .icon{
+  font-size:16px!important;
+  width:16px!important;
+  height:16px!important;
+  flex:0 0 16px!important;
+}
+
+/* Si los controles usan emojis/texto directamente, aumentarlos también. */
+.sound-panel button .emoji,
+.audio-panel button .emoji{
+  font-size:16px!important;
+}
+
+/* El slider gana un poco de altura para mantener proporción con los controles. */
+.sound-panel input[type="range"],
+.audio-panel input[type="range"]{
+  height:7px!important;
+}
+
+/* En móvil, conservar el equilibrio sin agrandar el panel en exceso. */
+@media(max-width:680px){
+  .sound-panel button,
+  .audio-panel button{font-size:12px!important}
+  .sound-panel button i,
+  .sound-panel button svg,
+  .sound-panel button .icon,
+  .audio-panel button i,
+  .audio-panel button svg,
+  .audio-panel button .icon{
+    font-size:15px!important;width:15px!important;height:15px!important;
+    flex-basis:15px!important;
+  }
+}
+
+/* FINAL OVERRIDE: sound panel uses .audio/.audio-row in the current markup. */
+.panel.audio h3{
+  font-size:13px!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:7px!important;
+}
+.panel.audio h3:first-letter{
+  font-size:19px!important;
+}
+.panel.audio label{
+  font-size:12px!important;
+}
+.panel.audio .audio-row{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:7px!important;
+}
+.panel.audio .audio-row button{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:6px!important;
+  font-size:12px!important;
+  line-height:1.1!important;
+  min-height:38px!important;
+}
+.panel.audio .audio-row button::first-letter{
+  font-size:18px!important;
+}
+/* Preserve the requested balance: icon clearly larger, label same size as panel text. */
+@media(max-width:680px){
+  .panel.audio h3{font-size:12px!important}
+  .panel.audio .audio-row button{font-size:12px!important}
+}

@@ -20,3 +20,8 @@ Editar `games.json` y añadir un objeto con:
 - `featured`
 
 No es necesario modificar `index.html` ni `app.js` para añadir una nueva ficha.
+
+
+## Repair Mahjong integrado
+El juego está en `repair-mahjong/` y el botón JUGAR usa `./repair-mahjong/`.
+Ruta de prueba en GitHub Pages: `https://chuyo31.github.io/juegos/repair-mahjong/`

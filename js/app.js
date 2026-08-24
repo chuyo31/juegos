@@ -6,7 +6,7 @@ const FALLBACK_GAMES = [
     category: "Puzzle",
     platform: ["Web"],
     status: "WEB",
-    playUrl: "https://chuyo31.github.io/repair-mahjong/",
+    playUrl: "./repair-mahjong/",
     downloadUrl: "",
     cover: "",
     description: "Mahjong de reparación electrónica con móviles, PC y consolas.",
