@@ -1,0 +1,22 @@
+[
+  {
+    "id": "repair-mahjong",
+    "name": "Repair Mahjong",
+    "version": "V4",
+    "category": "Puzzle",
+    "platform": [
+      "Web"
+    ],
+    "status": "WEB",
+    "playUrl": "https://chuyo31.github.io/repair-mahjong/",
+    "downloadUrl": "",
+    "cover": "",
+    "description": "Mahjong de reparación electrónica con móviles, PC y consolas.",
+    "tags": [
+      "Puzzle",
+      "Mahjong",
+      "Reparación"
+    ],
+    "featured": true
+  }
+]
