@@ -1273,3 +1273,39 @@ header .brand small{font-size:11px!important}
   .panel.audio h3{font-size:12px!important}
   .panel.audio .audio-row button{font-size:12px!important}
 }
+
+/* =========================================================
+   MOBILE BOARD FIX — CENTERED, NO TILE CLIPPING
+   The original 1040x700 board keeps its tile proportions;
+   only the complete board is scaled to the phone width.
+   ========================================================= */
+@media (max-width:680px){
+  .board-wrap{
+    width:100%!important;
+    overflow:hidden!important;
+    display:flex!important;
+    justify-content:center!important;
+    align-items:flex-start!important;
+  }
+  #board{
+    flex:0 0 1040px!important;
+    transform-origin:top center!important;
+    margin:0!important;
+  }
+}
+@media (max-width:430px){
+  :root{--board-scale:.40}
+  .board-wrap{height:280px!important;max-height:280px!important}
+}
+@media (max-width:400px){
+  :root{--board-scale:.37}
+  .board-wrap{height:259px!important;max-height:259px!important}
+}
+@media (max-width:380px){
+  :root{--board-scale:.35}
+  .board-wrap{height:245px!important;max-height:245px!important}
+}
+@media (max-width:360px){
+  :root{--board-scale:.33}
+  .board-wrap{height:231px!important;max-height:231px!important}
+}
