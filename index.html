@@ -1,73 +1,106 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <meta name="theme-color" content="#061116">
-  <title>CHUYO31 GAMES</title>
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Repair Mahjong V1</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="ambient ambient-a"></div>
-  <div class="ambient ambient-b"></div>
+<canvas id="ambientBg" aria-hidden="true"></canvas>
+<div class="last-move-popup" id="lastMovePopup" aria-live="assertive" aria-atomic="true">
+  <div class="last-move-orb">⚡</div>
+  <div class="last-move-title">¡ÚLTIMO MOVIMIENTO!</div>
+  <div class="last-move-sub">Solo queda una pareja disponible</div>
+</div>
+<div class="ambient" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-icon">⚡</div>
+      <div><strong>REPAIR MAHJONG</strong><small>Banco de reparación</small></div>
+    </div>
 
-  <header class="site-header">
-    <a class="brand" href="./" aria-label="CHUYO31 GAMES">
-      <span class="brand-icon">🎮</span>
-      <span class="brand-copy"><strong>CHUYO31</strong><small>GAMES</small></span>
-    </a>
+    <div class="header-message" id="message">Selecciona una ficha libre</div>
 
-    <nav class="main-nav" aria-label="Navegación principal">
-      <a class="active" href="#inicio">⌂ <span>Inicio</span></a>
-      <a href="#juegos">🎮 <span>Juegos</span></a>
-      <a href="#novedades">☆ <span>Novedades</span></a>
-      <a href="#sobre">ⓘ <span>Sobre</span></a>
-      <button id="themeButton" class="theme-button" type="button" aria-label="Cambiar tema">☾</button>
-    </nav>
+    <div class="stats">
+      <div><span>NIVEL</span><b id="level">1</b></div>
+      <div><span>FICHAS</span><b id="remaining">0</b></div>
+      <div><span>TIEMPO</span><b id="timer">00:00</b></div>
+      <div><span>PUNTOS</span><b id="score">0</b></div>
+    </div>
   </header>
 
-  <main id="inicio">
-    <section class="hero">
-      <div class="hero-copy">
-        <span class="eyebrow">GAME PORTAL</span>
-        <h1>Juega.<br><em>Descubre.</em></h1>
-        <p>Una colección de juegos web y descargables creados por <strong>Chuyo31.</strong></p>
+  <section class="difficultybar" id="difficultyBar" aria-label="Dificultad">
+    <span class="difficulty-label">DIFICULTAD</span>
+    <button class="difficulty-btn active" data-difficulty="easy">🟢 Fácil</button>
+    <button class="difficulty-btn" data-difficulty="normal">🟡 Normal</button>
+    <button class="difficulty-btn" data-difficulty="hard">🔴 Difícil</button>
+  </section>
+
+  <section class="resourcebar">
+    <div>🔥 RACHA <b id="streakTop">0/5</b></div>
+    <div class="move-center" id="moveStatus">Movimientos disponibles: 0</div>
+    <div>🔀 MEZCLAS <b id="mixTop">3/3</b></div>
+  </section>
+
+  <main>
+    <section class="board-wrap">
+      <div id="board" aria-label="Tablero de Repair Mahjong"></div>
+    </section>
+
+    <aside class="side">
+      <div class="panel">
+        <h3>ESTADO</h3>
+        <div class="line"><span>🔥 Racha</span><b id="streakSide">0/5</b></div>
+        <div class="line"><span>🔀 Mezclas</span><b id="mixSide">3/3</b></div>
+        <div class="line"><span>👆 Parejas</span><b id="pairs">0</b></div>
+        <div class="line"><span>🎯 Movimientos</span><b id="moves">0</b></div>
       </div>
 
-      <div class="hero-orbit" aria-hidden="true">
-        <div class="orbit-ring"></div>
-        <div class="orbit-dot"></div>
-        <div class="play-orb"><span>PLAY</span><b>NOW</b></div>
-        <small>MÁS JUEGOS,<br>MÁS POSIBILIDADES</small>
-      </div>
-    </section>
+      <button id="mixBtn" class="action">🔀 Mezclar <span id="mixButtonCount">3/3</span></button>
+      <button id="newBtn" class="secondary">↻ Nueva partida</button>
 
-    <section id="juegos" class="catalog">
-      <div class="toolbar">
-        <label class="search">
-          <span>⌕</span>
-          <input id="search" type="search" placeholder="Buscar juegos..." autocomplete="off">
-        </label>
-        <div id="categories" class="categories" aria-label="Categorías"></div>
+      <div class="panel audio">
+        <h3>🔊 SONIDO</h3>
+        <label>Volumen <input id="volume" type="range" min="0" max="6" step=".05" value="3.5"></label>
+        <div class="audio-row">
+          <button id="muteBtn">🔊 Sonido</button>
+          <button id="musicBtn">🎵 Música</button>
+        </div>
       </div>
 
-      <div id="games" class="games-grid"></div>
-      <div id="empty" class="empty hidden">No se han encontrado juegos.</div>
-    </section>
-
-    <section id="novedades" class="info-strip">
-      <span class="info-dot"></span>
-      <div><strong>Novedades</strong><small>Nuevos juegos y actualizaciones aparecerán aquí.</small></div>
-    </section>
-
-    <section id="sobre" class="about">
-      <span class="eyebrow">CHUYO31 GAMES</span>
-      <h2>Juegos hechos para jugar.</h2>
-      <p>Un pequeño portal para reunir juegos web y versiones descargables en un solo lugar.</p>
-    </section>
+      <div class="panel help">
+        <h3>REGLAS</h3>
+        <p>Une dos componentes idénticos que estén libres.</p>
+        <p>Al conseguir 5 parejas seguidas recuperas una mezcla, hasta 3.</p>
+      </div>
+    </aside>
   </main>
+</div>
 
-  <footer>© <span id="year"></span> CHUYO31 GAMES</footer>
-  <script src="js/app.js"></script>
+<div id="noMovesModal" class="modal hidden"><div class="modal-card danger-card"><div class="modal-icon">😱</div><h2>¡Oh no!</h2><p>Te has quedado sin movimientos.</p><p class="modal-sub">Vamos a intentarlo otra vez.</p><div class="no-moves-stats"><span>Movimientos <b id="finalMoves">0</b></span><span>Parejas <b id="finalPairs">0</b></span><span>Puntos <b id="finalScore">0</b></span></div><button id="retryBtn" class="action">↻ Reintentar</button><button id="newFromFailBtn" class="secondary">Nueva partida</button></div></div><div id="modal" class="modal hidden">
+  <div class="modal-card">
+    <div id="modalIcon" class="modal-icon">🏆</div>
+    <h2 id="modalTitle">¡Tablero despejado!</h2>
+    <p id="modalText"></p>
+    <div class="result-grid">
+      <div><small>TIEMPO</small><b id="resultTime">00:00</b></div>
+      <div><small>PUNTOS</small><b id="resultScore">0</b></div>
+      <div><small>POSICIÓN</small><b id="resultRank">#1</b></div>
+    </div>
+    <div class="records">
+      <h3>🏅 MEJORES TIEMPOS</h3>
+      <div id="recordsList"></div>
+    </div>
+    <div class="next">
+      <strong>🔧 SIGUIENTE NIVEL</strong>
+      <span id="nextText"></span>
+    </div>
+    <button id="nextBtn" class="action">Siguiente nivel →</button>
+  </div>
+</div>
+
+<script src="js/game.js"></script>
 </body>
 </html>
